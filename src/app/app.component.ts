@@ -30,6 +30,7 @@ export class AppComponent {
         console.log('value ', value); 
         this.number = value;
         this.numFibonacci = "";
+        this.flag = false;
       }
     )
   }
