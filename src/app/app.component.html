@@ -17,10 +17,13 @@
 
   <div class="card-container">
     <form [formGroup]="myForm">
-      <input id="fibo" type="text" class="form-control" 
-        [(ngModel)]="number"
-        [formControl]="myForm.controls['number']" />
+      <input id="fibo" type="text" class="form-control"
+        formControlName="number"/>
     </form>
+  </div>
+
+  <div class="alert-danger container-error-message" *ngIf="flag">
+    Introduce a correct number.
   </div>
 
   <!-- Terminal -->
@@ -29,7 +32,9 @@
   </div>
 
   <div>
-    <button type="button" class="btn btn-primary btnPosition" (click)="onTerminal()">Fibonacci</button>
+    <button type="button" class="btn btn-primary btnPosition" (click)="onTerminal()" [disabled]="myForm.invalid">
+      Fibonacci
+    </button>
   </div>
 
   <!-- Footer -->

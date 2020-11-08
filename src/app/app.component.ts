@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { debounceTime, scan, startWith } from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +11,14 @@ export class AppComponent {
   number: string = '';
   numFibonacci: any;
   data: any;
+  flag: boolean;
 
   myForm: FormGroup;
 
   constructor(fb: FormBuilder) {
     
     this.myForm = fb.group({
-      'number': ['']
+      number: ['', Validators.required]
     });
 
   }
@@ -29,6 +28,7 @@ export class AppComponent {
     this.data.valueChanges.subscribe(
       (value: string) => {
         console.log('value ', value); 
+        this.number = value;
         this.numFibonacci = "";
       }
     )
@@ -36,7 +36,14 @@ export class AppComponent {
 
   onTerminal() {
     if(this.number != null){
-      this.numFibonacci = this.fibonacci(this.convertStringToNumber(this.number));
+      let num = this.convertStringToNumber(this.number)
+      if(num <= 33){
+        this.numFibonacci = this.fibonacci(num);
+        this.flag = false;
+      }else{
+        this.numFibonacci = "Not possible";
+        this.flag = true;
+      }
     }
   }
 
