@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { User } from './models/User';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class AppComponent {
 
+  user = new User();
   number: string = '';
   numFibonacci: any;
   data: any;
@@ -28,7 +30,7 @@ export class AppComponent {
     this.data.valueChanges.subscribe(
       (value: string) => {
         console.log('value ', value); 
-        this.number = value;
+        this.user.number = value;
         this.numFibonacci = "";
         this.flag = false;
       }
@@ -36,8 +38,8 @@ export class AppComponent {
   }
 
   onTerminal() {
-    if(this.number != null){
-      let num = this.convertStringToNumber(this.number)
+    if(this.user.number != null){
+      let num = this.convertStringToNumber(this.user.number)
       if(num <= 33){
         this.numFibonacci = this.fibonacci(num);
         this.flag = false;
